@@ -17,10 +17,10 @@ export class App extends Component {
   };
 
   onInput = evt => {
-    this.setState({ [evt.target.name]: evt.target.value });
+    this.setState({ [evt.name]: evt.value });
   };
 
-  onAdd = evt => {
+  onAdd = () => {
     const contact = {
       contacts: [
         ...this.state.contacts,
@@ -61,7 +61,7 @@ export class App extends Component {
                 name="name"
                 type="text"
                 value={name}
-                onChange={this.onInput}
+                onChange={evt => this.onInput(evt.target)}
                 required
               />
             </label>
@@ -72,11 +72,10 @@ export class App extends Component {
                 name="number"
                 type="tel"
                 value={number}
-                onChange={this.onInput}
+                onChange={evt => this.onInput(evt.target)}
                 required
               />
             </label>
-
             <button type="submit">Add contact</button>
           </Form>
         </Formik>
@@ -88,8 +87,9 @@ export class App extends Component {
           type="text"
           name="filter"
           value={filter}
-          onChange={this.onInput}
+          onChange={evt => this.onInput(evt.target)}
         />
+
         {contacts.length > 0 && (
           <ul>
             {visibleContacts.map(contact => (
