@@ -1,8 +1,10 @@
+import { Field, Text } from './Filte.styled';
+
 export const Filter = ({ filter, onInput }) => {
   return (
     <>
-      <p>Find contacts by name</p>
-      <input
+      <Text>Find contacts by name</Text>
+      <Field
         type="text"
         name="filter"
         value={filter}

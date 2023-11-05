@@ -1,14 +1,23 @@
-export const ContactList = ({ visibleContacts }) => {
+import { Button, Item, List } from './ContactList.styled';
+
+export const ContactList = ({ visibleContacts, onDelete }) => {
   return (
     <>
       {visibleContacts.length > 0 && (
-        <ul>
+        <List>
           {visibleContacts.map(contact => (
-            <li key={contact.id}>
+            <Item key={contact.id}>
               {contact.name}: {contact.number}
-            </li>
+              <Button
+                type="button"
+                value={contact.id}
+                onClick={evt => onDelete(evt.target.value)}
+              >
+                Delete
+              </Button>
+            </Item>
           ))}
-        </ul>
+        </List>
       )}
     </>
   );

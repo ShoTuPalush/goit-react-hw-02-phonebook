@@ -1,4 +1,5 @@
-import { Formik, Field, Form } from 'formik';
+import { Formik } from 'formik';
+import { Button, Label, StyledField, StyledForm } from './ContactForm.styled';
 
 export const ContactForm = ({ onAdd }) => {
   return (
@@ -13,18 +14,18 @@ export const ContactForm = ({ onAdd }) => {
           actions.resetForm();
         }}
       >
-        <Form>
-          <label>
+        <StyledForm>
+          <Label>
             Name
-            <Field name="name" type="text" required />
-          </label>
+            <StyledField name="name" type="text" required />
+          </Label>
 
-          <label>
+          <Label>
             Number
-            <Field name="number" type="tel" required />
-          </label>
-          <button type="submit">Add contact</button>
-        </Form>
+            <StyledField name="number" type="tel" required />
+          </Label>
+          <Button type="submit">Add contact</Button>
+        </StyledForm>
       </Formik>
     </>
   );

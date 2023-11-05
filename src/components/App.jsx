@@ -1,9 +1,11 @@
 import { nanoid } from 'nanoid';
+import { Notify } from 'notiflix';
 import { Component } from 'react';
 import { GlobalStyled } from './GlobalStyle';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
+import { Title1, Title2 } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -22,6 +24,13 @@ export class App extends Component {
 
   onAdd = values => {
     const { name, number } = values;
+    if (
+      this.state.contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      return Notify.failure(`${name} is already in conracts`);
+    }
     const contact = {
       contacts: [
         ...this.state.contacts,
@@ -29,6 +38,14 @@ export class App extends Component {
       ],
     };
     this.setState(contact);
+  };
+
+  onDelete = id => {
+    this.setState(prevState => {
+      return {
+        contacts: prevState.contacts.filter(contact => contact.id !== id),
+      };
+    });
   };
 
   render() {
@@ -39,15 +56,19 @@ export class App extends Component {
         .includes(filter.toLowerCase());
       return hasContact;
     });
+
     return (
       <>
         <GlobalStyled />
-        <h1>Phonebook</h1>
+        <Title1>Phonebook</Title1>
         <ContactForm onAdd={this.onAdd} />
 
-        <h2>Contacts</h2>
+        <Title2>Contacts</Title2>
         <Filter filter={filter} onInput={this.onInput} />
-        <ContactList visibleContacts={visibleContacts} />
+        <ContactList
+          visibleContacts={visibleContacts}
+          onDelete={this.onDelete}
+        />
       </>
     );
   }
